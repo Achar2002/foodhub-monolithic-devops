@@ -102,39 +102,77 @@
     <p>Discover restaurants and delicious meals with FoodHub.</p>
 </section>
 
+
+<!-- Restaurants -->
 <section class="restaurants">
 
     <h2>Popular Restaurants</h2>
 
-    <div class="cards">
-
-        <div class="card">
-            <h3>Italian Pizza House</h3>
-            <p>Pizza, Italian, Fast Food</p>
-            <span class="rating">★ 4.5</span>
-        </div>
-
-        <div class="card">
-            <h3>Spice Kitchen</h3>
-            <p>Indian, Biryani, North Indian</p>
-            <span class="rating">★ 4.4</span>
-        </div>
-
-        <div class="card">
-            <h3>Sweet Treats</h3>
-            <p>Desserts, Cakes, Bakery</p>
-            <span class="rating">★ 4.7</span>
-        </div>
-
-        <div class="card">
-            <h3>Healthy Bites</h3>
-            <p>Healthy Food, Salads</p>
-            <span class="rating">★ 4.3</span>
-        </div>
-
+    <div id="restaurant-list" class="cards">
+        <p>Loading restaurants...</p>
     </div>
 
 </section>
+
+
+<!-- Food Menu -->
+<section class="restaurants">
+
+    <h2>Food Menu</h2>
+
+    <div id="food-list" class="cards">
+        <p>Loading food...</p>
+    </div>
+
+</section>
+
+
+<!-- JavaScript -->
+<script>
+
+    // Call Restaurant API
+    fetch("/restaurants")
+        .then(response => response.text())
+        .then(data => {
+
+            document.getElementById("restaurant-list").innerHTML =
+                "<div class='card'>" +
+                "<h3>Restaurants</h3>" +
+                "<p>" + data + "</p>" +
+                "</div>";
+
+        })
+        .catch(error => {
+
+            document.getElementById("restaurant-list").innerHTML =
+                "<p>Unable to load restaurants.</p>";
+
+            console.error(error);
+        });
+
+
+    // Call Food API
+    fetch("/food")
+        .then(response => response.text())
+        .then(data => {
+
+            document.getElementById("food-list").innerHTML =
+                "<div class='card'>" +
+                "<h3>Today's Menu</h3>" +
+                "<p>" + data + "</p>" +
+                "</div>";
+
+        })
+        .catch(error => {
+
+            document.getElementById("food-list").innerHTML =
+                "<p>Unable to load food.</p>";
+
+            console.error(error);
+        });
+
+</script>
+
 
 <footer>
     <p>© 2026 FoodHub | DevOps Practice Project</p>
